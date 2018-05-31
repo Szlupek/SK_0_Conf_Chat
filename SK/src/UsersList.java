@@ -60,12 +60,14 @@ public class UsersList {
 			it++;
 		}
 		list.add(new User(gIP, name, gPort));
+		Window.adresses.addItem(name);
 	}
 
 	static void replaceUser(String gIP, String gName, int gPort) {
 		for (int ii = 0; ii < list.size(); ii++) {
 			if (gIP.equals(list.get(ii).IP) && gPort == list.get(ii).port && !gName.equals(list.get(ii).name)) {
 				System.out.println("User - " + list.get(ii).name + " changed name to - " + gName);
+				Window.printl("User - " + list.get(ii).name + " changed name to - " + gName);
 				list.set(ii, new User(gIP, gName, gPort));
 			}
 		}

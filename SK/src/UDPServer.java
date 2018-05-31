@@ -4,9 +4,10 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class UDPServer {
+	
 
 	public UDPServer() throws Exception {
-
+		
 		int it = 0;
 		int ok = 0;
 		while (it < 5 && ok == 0) {
@@ -72,6 +73,7 @@ public class UDPServer {
 			if (!UsersList.checkIfEg(IP, port)) {
 				addUser(IP, name, port);
 				System.out.println("Added - " + messege.substring(5, messege.length()));
+				//Window.printl("Added - " + messege.substring(5, messege.length()));
 			} else {
 				UsersList.replaceUser(IP, name, port);
 			}
@@ -83,6 +85,7 @@ public class UDPServer {
 			if (!UsersList.checkIfEg(IP, port)) {
 				addUser(IP, name, port);
 				System.out.println("Added - " + messege.substring(5, messege.length()));
+			//	Window.printl("Added - " + messege.substring(5, messege.length()));
 			} else {
 				UsersList.replaceUser(IP, name, port);
 			}
@@ -92,6 +95,8 @@ public class UDPServer {
 		case 'm':
 			System.out.println("[" + UsersList.getNameFromIPAndPort(IP, Integer.parseInt(messege.substring(1, 5)))
 					+ "] " + messege.substring(5, messege.length()));
+			Window.printl("[" + UsersList.getNameFromIPAndPort(IP, Integer.parseInt(messege.substring(1, 5)))
+			+ "] " + messege.substring(5, messege.length()));
 			break;
 		default:
 			break;

@@ -2,12 +2,11 @@
 public class Main {
 
 	public Main() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) throws Exception {
 		Body b = new Body();
-
+		//Window okno = new Window();
 	}
 
 }

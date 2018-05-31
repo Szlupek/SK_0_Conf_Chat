@@ -12,6 +12,7 @@ public class UDPClient {
 	public UDPClient() throws IOException {
 		Scanner scan = new Scanner(System.in);
 		help();
+		scream(Config.PORT);
 		while (Config.close == 0) {
 			String typ = scan.nextLine();
 			switch (typ) {
@@ -23,8 +24,8 @@ public class UDPClient {
 			case "m":
 				System.out.println("To? (number)");
 				UsersList.printList();
-				int num = Integer.parseInt(scan.nextLine());
 				try {
+					int num = Integer.parseInt(scan.nextLine());
 					sendMessage(UsersList.list.get(num).IP, UsersList.list.get(num).port);
 				} catch (Exception e) {
 				}
@@ -116,6 +117,7 @@ public class UDPClient {
 		Scanner scan1 = new Scanner(System.in);
 		String text = scan1.nextLine();
 		if (!text.equals("")) {
+			Window.printl(text);
 			String message = "m" + Config.PORT + text;
 			InetAddress serverAddress = InetAddress.getByName("localhost");
 			DatagramSocket socket = new DatagramSocket();
@@ -128,10 +130,11 @@ public class UDPClient {
 		}
 	}
 
-	void sendMessage(String IP, int port) throws IOException {
+	 void sendMessage(String IP, int port) throws IOException {
 		Scanner scan1 = new Scanner(System.in);
 		String text = scan1.nextLine();
 		if (!text.equals("")) {
+			Window.printl(text);
 			String message = "m" + Config.PORT + text;
 			InetAddress serverAddress = InetAddress.getByName(IP);
 			DatagramSocket socket = new DatagramSocket();
@@ -144,6 +147,24 @@ public class UDPClient {
 		}
 	}
 
+	 
+	static void sendMessage(String IP, int port, String text) throws IOException {
+		if (!text.equals("")) {
+			Window.printl(text);
+			String message = "m" + Config.PORT + text;
+			InetAddress serverAddress = InetAddress.getByName(IP);
+			DatagramSocket socket = new DatagramSocket();
+			byte[] stringContents = message.getBytes("utf8");
+			DatagramPacket sentPacket = new DatagramPacket(stringContents, stringContents.length);
+			sentPacket.setAddress(serverAddress);
+			sentPacket.setPort(port);
+			socket.send(sentPacket);
+			socket.close();
+		}
+	}
+	 
+	 
+	 
 	void refresh() throws IOException {
 		UsersList.removeAll();
 		for (int ii = 0; ii < 5; ii++) {
@@ -152,6 +173,8 @@ public class UDPClient {
 	}
 
 	void help() {
+
+		
 		System.out.println("Type: - s for serch");
 		System.out.println("      - m for messege");
 		System.out.println("      - l for list of users");

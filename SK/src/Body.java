@@ -9,6 +9,7 @@ public class Body {
 
 		scanner = new Scanner(System.in);
 		hello();
+		Window okno = new Window();
 		
 		TServer tServer = new TServer();
 		TClient tClient = new TClient();
