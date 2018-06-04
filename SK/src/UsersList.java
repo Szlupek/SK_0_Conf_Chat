@@ -69,6 +69,7 @@ public class UsersList {
 				System.out.println("User - " + list.get(ii).name + " changed name to - " + gName);
 				Window.printl("User - " + list.get(ii).name + " changed name to - " + gName);
 				list.set(ii, new User(gIP, gName, gPort));
+				Window.refreshCombo();
 			}
 		}
 	}

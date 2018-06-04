@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketTimeoutException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -118,13 +119,12 @@ public class Window extends JFrame {
 		textArea.append("\n" + text);
 	}
 
-	/*static void refreshCombo() {
-		//adresses.removeAllItems();
+	static void refreshCombo() {
+		adresses.removeAllItems();
 		for (int ii = 0; ii < UsersList.list.size(); ii++) {
 			adresses.addItem(UsersList.list.get(ii).name);
 		}
-		System.out.println(UsersList.list);
-	}*/
+	}
 
 	void sendMessage(String IP, int port, String text) throws IOException {
 		if (!text.equals("")) {
@@ -137,6 +137,16 @@ public class Window extends JFrame {
 			sentPacket.setAddress(serverAddress);
 			sentPacket.setPort(port);
 			socket.send(sentPacket);
+			DatagramPacket recievePacket = new DatagramPacket(new byte[Config.BUFFER_SIZE], Config.BUFFER_SIZE);
+			socket.setSoTimeout(1010);
+
+			try {
+				socket.receive(recievePacket);
+				// System.out.println("Serwer otrzymał wiadomość");
+			} catch (SocketTimeoutException ste) {
+				Window.printl("***wiadomość nie dotarła***");
+
+			}
 			socket.close();
 		}
 	}

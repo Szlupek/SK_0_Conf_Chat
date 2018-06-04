@@ -4,10 +4,9 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class UDPServer {
-	
 
 	public UDPServer() throws Exception {
-		
+
 		int it = 0;
 		int ok = 0;
 		while (it < 5 && ok == 0) {
@@ -27,7 +26,7 @@ public class UDPServer {
 
 			System.out.println("Used port -" + Config.PORT);
 
-			byte[] byteResponse = "OK".getBytes("utf8");
+			byte[] byteResponse = "otrzymano".getBytes("utf8");
 
 			while (Config.close == 0) {
 
@@ -38,15 +37,12 @@ public class UDPServer {
 				int length = reclievedPacket.getLength();
 				String message = new String(reclievedPacket.getData(), 0, length, "utf8");
 
-				// Port i host który wysłał nam zapytanie
 				InetAddress address = reclievedPacket.getAddress();
 				int port = reclievedPacket.getPort();
 				checkMessage(message, address.getHostAddress());
 
 				// System.out.println(message + " " + address + " " + port);
-				Thread.sleep(1000); // To oczekiwanie nie jest potrzebne dla
-				// obsługi gniazda
-
+				Thread.sleep(100);
 				DatagramPacket response = new DatagramPacket(byteResponse, byteResponse.length, address, port);
 				try {
 					datagramSocket.send(response);
@@ -73,7 +69,7 @@ public class UDPServer {
 			if (!UsersList.checkIfEg(IP, port)) {
 				addUser(IP, name, port);
 				System.out.println("Added - " + messege.substring(5, messege.length()));
-				//Window.printl("Added - " + messege.substring(5, messege.length()));
+				// Window.printl("Added - " + messege.substring(5, messege.length()));
 			} else {
 				UsersList.replaceUser(IP, name, port);
 			}
@@ -85,7 +81,7 @@ public class UDPServer {
 			if (!UsersList.checkIfEg(IP, port)) {
 				addUser(IP, name, port);
 				System.out.println("Added - " + messege.substring(5, messege.length()));
-			//	Window.printl("Added - " + messege.substring(5, messege.length()));
+				// Window.printl("Added - " + messege.substring(5, messege.length()));
 			} else {
 				UsersList.replaceUser(IP, name, port);
 			}
@@ -95,8 +91,8 @@ public class UDPServer {
 		case 'm':
 			System.out.println("[" + UsersList.getNameFromIPAndPort(IP, Integer.parseInt(messege.substring(1, 5)))
 					+ "] " + messege.substring(5, messege.length()));
-			Window.printl("[" + UsersList.getNameFromIPAndPort(IP, Integer.parseInt(messege.substring(1, 5)))
-			+ "] " + messege.substring(5, messege.length()));
+			Window.printl("[" + UsersList.getNameFromIPAndPort(IP, Integer.parseInt(messege.substring(1, 5))) + "] "
+					+ messege.substring(5, messege.length()));
 			break;
 		default:
 			break;

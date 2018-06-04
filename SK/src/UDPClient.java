@@ -13,6 +13,7 @@ public class UDPClient {
 		Scanner scan = new Scanner(System.in);
 		help();
 		scream(Config.PORT);
+		for(int ii =9000;ii<9005;ii++)scream(ii);
 		while (Config.close == 0) {
 			String typ = scan.nextLine();
 			switch (typ) {
@@ -60,16 +61,6 @@ public class UDPClient {
 		sentPacket.setPort(Config.PORT);
 		socket.send(sentPacket);
 
-		DatagramPacket recievePacket = new DatagramPacket(new byte[Config.BUFFER_SIZE], Config.BUFFER_SIZE);
-		socket.setSoTimeout(1010);
-
-		try {
-			socket.receive(recievePacket);
-			// System.out.println("Serwer otrzymał wiadomość");
-		} catch (SocketTimeoutException ste) {
-			System.out.println("Serwer nie odpowiedział, więc albo dostał wiadomość albo nie...");
-
-		}
 		socket.close();
 	}
 
@@ -143,6 +134,16 @@ public class UDPClient {
 			sentPacket.setAddress(serverAddress);
 			sentPacket.setPort(port);
 			socket.send(sentPacket);
+			DatagramPacket recievePacket = new DatagramPacket(new byte[Config.BUFFER_SIZE], Config.BUFFER_SIZE);
+			socket.setSoTimeout(1010);
+
+			try {
+				socket.receive(recievePacket);
+				// System.out.println("Serwer otrzymał wiadomość");
+			} catch (SocketTimeoutException ste) {
+				System.out.println("wiadomość nie dotarła");
+
+			}
 			socket.close();
 		}
 	}
@@ -159,6 +160,16 @@ public class UDPClient {
 			sentPacket.setAddress(serverAddress);
 			sentPacket.setPort(port);
 			socket.send(sentPacket);
+			DatagramPacket recievePacket = new DatagramPacket(new byte[Config.BUFFER_SIZE], Config.BUFFER_SIZE);
+			socket.setSoTimeout(1010);
+
+			try {
+				socket.receive(recievePacket);
+				// System.out.println("Serwer otrzymał wiadomość");
+			} catch (SocketTimeoutException ste) {
+				System.out.println("wiadomość nie dotarła");
+
+			}
 			socket.close();
 		}
 	}
