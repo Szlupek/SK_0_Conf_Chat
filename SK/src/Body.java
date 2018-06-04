@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Body {
 
-
 	Scanner scanner;
 
 	public Body() throws Exception {
@@ -10,14 +9,12 @@ public class Body {
 		scanner = new Scanner(System.in);
 		hello();
 		Window okno = new Window();
-		
+
 		TServer tServer = new TServer();
-		TClient tClient = new TClient();
-		
-		
+		TClient tClient = new TClient(); // niepotrzebny (obsluga terminalu)
+
 		tServer.start();
 		tClient.start();
-		
 	}
 
 	public void hello() {
